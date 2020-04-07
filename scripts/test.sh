@@ -1,0 +1,1 @@
+python test.py --checkpoints ./checkpoints/test256_noclassification --output ./results/test256_noclassification

@@ -1,0 +1,94 @@
+MODE: 1             # 1: train, 2: test, 3: eval
+MODEL: 1            # 1: deep_feature_guided
+MASK: 3             # 1: random block, 2: half, 3: external, 4: (external, random block), 5: (external, random block, half)
+SEED: 10            # random seed
+GPU: [0]            # list of gpu ids
+MULTI_GPU: True
+DEBUG: 0            # turns on debugging mode
+VERBOSE: 1          # turns on verbose mode in the output console
+HTML: 1             # turns on html mode
+
+MASK_REVERSE: False
+
+VGG_PRETRAINED_PATH: ./pretrained/vgg19_places2_ep83_acc87.pth
+
+# dataset config
+DATASET: places2
+CLASS_DICT: {}
+CLASS_NUM: 365
+CENTER_CROP_WHEN_TRAIN: False
+
+# network config
+USE_CLASSIFICATION: False
+VGG_PRETRAINED: True
+VGG_REQUITES_GRAD: True
+MULTI_SCALE_DIS: False
+WITH_CLASSIFIER: False
+CLASSIFIER_REQUIRES_GRAD: False
+USE_FRN: False
+FRN_LOSS: False
+MULTI_TASK: False
+ADD_MASK_INFO: False
+ALL_FEATURE: False
+USE_LATENT_VECTOR: True
+
+DILATION: 2
+UPSAMPLE_TYPE: upsample
+
+
+# TRAIN_FLIST: ./datasets/places2_train_256.flist
+# VAL_FLIST: ./datasets/places2_val_256.flist
+# TEST_FLIST: ./datasets/place2_test_12k_large.flist
+
+TRAIN_FLIST: ./datasets/places2_train_512.flist
+VAL_FLIST: ./datasets/places2_val_512.flist
+TEST_FLIST: ./datasets/place2_test_12k_large.flist
+
+# TRAIN_FLIST: ./datasets/celeba_train.flist
+# VAL_FLIST: ./datasets/celeba_val.flist
+# TEST_FLIST: ./datasets/celeba_test.flist
+
+# TRAIN_MASK_FLIST: ./datasets/random_masks_train.flist
+TRAIN_MASK_FLIST: ./datasets/masks_train.flist
+VAL_MASK_FLIST: ./datasets/masks_val.flist
+TEST_MASK_FLIST: ./datasets/masks_test.flist
+
+LR: 0.0001                    # learning rate
+D2G_LR: 0.1                   # discriminator/generator learning rate ratio
+BETA1: 0.0                    # adam optimizer beta1
+BETA2: 0.9                    # adam optimizer beta2
+BATCH_SIZE: 1                 # input batch size for training
+INPUT_SIZE: 256               # input image size for training 0 for original size
+# INPUT_SIZE: 512               # input image size for training 0 for original size
+MAX_ITERS: 2e6                # maximum number of iterations to train the model
+
+
+# Loss weights
+L1_LOSS_WEIGHT: 1             # l1 loss weight
+FM_LOSS_WEIGHT: 10            # feature-matching loss weight
+STYLE_LOSS_WEIGHT: 250        # style loss weight
+CONTENT_LOSS_WEIGHT: 1      # perceptual loss weight
+INPAINT_ADV_LOSS_WEIGHT: 0.1  # adversarial loss weight
+CLASSIFIER_LOSS_WEIGHT: 0.05   # classifier loss weight
+
+GAN_LOSS: nsgan               # nsgan | lsgan | hinge | wgan
+GAN_POOL_SIZE: 0              # fake images pool size
+
+
+# Interval
+SAVE_INTERVAL: 1000           # how many iterations to wait before saving model (0: never)
+EXTRA_SAVE_INTERVAL: 0
+METRIC_INTERVAL: 1000
+SAMPLE_INTERVAL: 1000         # how many iterations to wait before sampling (0: never)
+SAMPLE_SIZE: 8               # number of images to sample
+EVAL_INTERVAL: 40000         # how many iterations to wait before model evaluation (0: never)
+TEST_INTERVAL: 40000          # how many iterations to wait before model test (0: never)
+LOG_INTERVAL: 100             # how many iterations to wait before logging training status (0: never)
+
+
+# Metric setting
+SAVE_EXT: '.png'
+RUN_METRIC: True
+RUN_METRIC_SCRIPTS: False
+SSIM_WINSIZE: 11
+GRAY_MODE: False
